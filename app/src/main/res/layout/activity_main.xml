@@ -9,14 +9,14 @@
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/mToolbar"
-            android:background="#0D7FD5"
+            android:background="#800080"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <ImageView
-                    android:src="@drawable/banner"
+
                     android:layout_width="180dp"
                     android:layout_height="50dp"/>
             <ImageView
@@ -33,7 +33,6 @@
             android:id="@+id/mPreView"
             android:layout_below="@+id/mToolbar"
             android:layout_above="@+id/mLinear"
-            android:src="@drawable/bg"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
