@@ -9,21 +9,16 @@
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/mToolbar"
-            android:background="#800080"
+            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <ImageView
-                    android:layout_width="180dp"
+                    android:src="@drawable/ic_header"
+                    android:layout_width="250dp"
                     android:layout_height="50dp"/>
-            <ImageView
-                    android:src="@drawable/ic_upload"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="100dp"
-                    android:layout_height="38dp"/>
 
         </RelativeLayout>
 
@@ -48,7 +43,7 @@
                 android:id="@+id/mCamera"
                 android:padding="15dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_camera"
+                android:src="@drawable/camera"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"/>
         <View
@@ -61,7 +56,20 @@
                 android:id="@+id/mGallery"
                 android:padding="15dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_gallery"
+                android:src="@drawable/photo"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+        <View
+                android:layout_width="1dp"
+                android:background="#353434"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_height="match_parent" />
+        <ImageView
+                android:id="@+id/mClean"
+                android:padding="15dp"
+                android:layout_weight="1"
+                android:src="@drawable/clean"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"/>
 
