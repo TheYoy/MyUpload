@@ -25,6 +25,7 @@
     </android.support.v7.widget.Toolbar>
     <ImageView
             android:id="@+id/mPreView"
+            android:src="@drawable/bg"
             android:layout_below="@+id/mToolbar"
             android:layout_above="@+id/mLinear"
             android:scaleType="centerCrop"
