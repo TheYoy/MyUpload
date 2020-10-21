@@ -73,7 +73,11 @@
                 android:src="@drawable/clean"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"/>
-
+        <TextView
+                android:id="@+id/mText"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
     </LinearLayout>
 
 </RelativeLayout>

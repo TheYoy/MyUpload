@@ -1,10 +1,14 @@
 package com.example.myupload
 
 import android.Manifest
+import android.R
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.support.v4.content.res.ResourcesCompat
 import android.widget.Toast
 import com.codemobiles.cmuploadkotlin.CMCameraIntentHelperActivity
 import com.karumi.dexter.Dexter
@@ -13,15 +17,8 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.io.IOException
+
 
 class MainActivity : CMCameraIntentHelperActivity() {
 
@@ -79,30 +76,61 @@ class MainActivity : CMCameraIntentHelperActivity() {
         val _baos = ByteArrayOutputStream()
         _photoBitMap.compress(Bitmap.CompressFormat.PNG, 0, _baos)
 
+        val r1 = 160
+        val g1 = 161
+        val b1 = 166
+        val r2 = 167
+        val g2 = 157
+        val b2 = 124
+        val r3 = 167
+        val g3 = 147
+        val b3 = 84
+        val r4 = 165
+        val g4 = 139
+        val b4 = 55
+        val r5 = 175
+        val g5 = 136
+        val b5 = 33
+        val r6 = 167
+        val g6 = 124
+        val b6 = 20
+        val r7 = 173
+        val g7 = 123
+        val b7 = 10
 
-        val _reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), _baos.toByteArray()) //multipart/form-data //key from server
-        val _bodyImage = MultipartBody.Part.createFormData("userfile", _fileName, _reqFile)
+        //val myLogo = (resources.getDrawable(R.drawable) as BitmapDrawable).bitmap
 
-        // Sent Data to server (optional)
-        val _username = "admin"
-        val _password = "i love codemobiles"
-        val _bodyUsername = RequestBody.create(MediaType.parse("text/plain"), _username)
-        val _bodyPassword = RequestBody.create(MediaType.parse("text/plain"), _password)
+        var redColors = 0
+        var greenColors = 0
+        var blueColors = 0
+        var pixelCount = 0
 
-        val _call = ApiInterface.getClient().postImageNodeJS(_bodyImage, _bodyUsername, _bodyPassword)
-        _call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                try {
-                    Toast.makeText(this@MainActivity, response.body()!!.string(), Toast.LENGTH_LONG).show()
-                } catch (e: IOException) {
-                    Log.e("codemobiles_restful", e.message.toString())
-                }
+        for (y in 0 until _photoBitMap.getHeight()) {
+            for (x in 0 until _photoBitMap.getWidth()) {
+                val c: Int = _photoBitMap.getPixel(x, y)
+                pixelCount++
+                redColors += Color.red(c)
+                greenColors += Color.green(c)
+                blueColors += Color.blue(c)
             }
+        }
+        val red = redColors / pixelCount
+        val green = greenColors / pixelCount
+        val blue = blueColors / pixelCount
+        mText.text = red.toString() + blue.toString() + green.toString()
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e("codemobiles_restful", t.message.toString())
-            }
-        })
+        var tr1  = 0
+            if(red > r1) tr1 = red - r1
+            else tr1 = r1 - red
+        var tg1  = 0
+            if(green > g1) tg1 = green - g1
+            else tg1 = g1 - green
+        var tb1  = 0
+            if(blue > b1) tb1 = blue - b1
+            else tb1 = b1 - blue
+
+        
+
 
 
     }
