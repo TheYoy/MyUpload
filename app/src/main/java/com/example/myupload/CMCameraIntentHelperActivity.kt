@@ -204,7 +204,7 @@ open class CMCameraIntentHelperActivity : AppCompatActivity() {
                 // and, additionally, in the MediaStore)
                 val manufacturer = android.os.Build.MANUFACTURER
                     .toLowerCase(Locale.ENGLISH)
-                Log.i("codemobiles", manufacturer)
+                Log.i("ploy", manufacturer)
 
                 val model = android.os.Build.MODEL
                     .toLowerCase(Locale.ENGLISH)

@@ -39,6 +39,9 @@ class MainActivity : CMCameraIntentHelperActivity() {
         mGallery.setOnClickListener {
             startGalleryIntent(500)
         }
+        mClean.setOnClickListener {
+            pdelete()
+        }
     }
 
     override fun onPhotoUriFound(_photoUri: Uri?, _photoBitMap: Bitmap?, _filePath: String?, _fileName: String) {
@@ -47,7 +50,9 @@ class MainActivity : CMCameraIntentHelperActivity() {
         mPreView.setImageBitmap(_photoBitMap)
         upload(_fileName,_photoBitMap!!)
     }
-
+    private fun pdelete() {
+        mPreView.setImageBitmap(null)
+    }
     private fun checkRuntimePermission() {
 
         val _permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -72,38 +77,42 @@ class MainActivity : CMCameraIntentHelperActivity() {
     }
 
     private fun upload(_fileName: String, _photoBitMap: Bitmap) {
-
+        // สตรีมไฟล์ภาพ Bitmap เป็น Byte[]
         // Compress Bitmap to Byte[] for upload
         val _baos = ByteArrayOutputStream()
         _photoBitMap.compress(Bitmap.CompressFormat.PNG, 0, _baos)
 
-        var r1 = 160
-        var g1 = 161
-        var b1 = 166
-        var r2 = 167
-//        val g2 = 157
-//        val b2 = 124
+        //สร้างตัวแปรรับค่าสีจากรูปเปรียบเทียบโดยฟิกไว้
+        val r1 = 160
+        val g1 = 161
+        val b1 = 166
+        val r2 = 167
+        val g2 = 157
+        val b2 = 124
         val r3 = 167
-//        val g3 = 147
-//        val b3 = 84
+        val g3 = 147
+        val b3 = 84
         val r4 = 165
-//        val g4 = 139
-//        val b4 = 55
+        val g4 = 139
+        val b4 = 55
         val r5 = 175
-//        val g5 = 136
-//        val b5 = 33
+        val g5 = 136
+        val b5 = 33
         val r6 = 167
-//        val g6 = 124
-//        val b6 = 20
+        val g6 = 124
+        val b6 = 20
         val r7 = 173
-//        val g7 = 123
-//        val b7 = 10
+        val g7 = 123
+        val b7 = 10
 
+        //ฟังชั่นหาค่า RGB จากรูปที่ถ่ายหรืออัพมา
         var redColors = 0
         var greenColors = 0
         var blueColors = 0
         var pixelCount = 0
 
+        // โดยทำการวนลูปหาพื้นที่ส่วนสูง และความกว้าง เพื่อหา Pixelของสี จากแกน X Y
+        // นำ Pixel ไปแปลงเป็น RGB
         for (y in 0 until _photoBitMap.getHeight()) {
             for (x in 0 until _photoBitMap.getWidth()) {
                 val c: Int = _photoBitMap.getPixel(x, y)
@@ -117,7 +126,9 @@ class MainActivity : CMCameraIntentHelperActivity() {
         val green = greenColors / pixelCount
         val blue = blueColors / pixelCount
 
+    //ฟังชั่นนำค่าสีมาคำนณวนโดยเช็คค่ามากลบค่าน้อย เพื่อหาผลบวก
     //red
+
         var tr1  = 0
             if(red > r1) tr1 = red - r1
             else tr1 = r1 - red
@@ -140,49 +151,109 @@ class MainActivity : CMCameraIntentHelperActivity() {
             if(red > r7) tr7 = red - r7
             else tr7 = r7 - red
     //red
+    //green
         var tg1  = 0
             if(green > g1) tg1 = green - g1
             else tg1 = g1 - green
+        var tg2  = 0
+            if(green > g2) tg2 = green - g2
+            else tg2 = g2 - green
+        var tg3  = 0
+            if(green > g3) tg3 = green - g3
+            else tg3 = g3 - green
+        var tg4  = 0
+            if(green > g4) tg4 = green - g4
+            else tg4 = g4 - green
+        var tg5  = 0
+            if(green > g5) tg5 = green - g5
+            else tg5 = g5 - green
+        var tg6  = 0
+            if(green > g6) tg6 = green - g6
+            else tg6 = g6 - green
+        var tg7  = 0
+            if(green > g7) tg7 = green - g7
+            else tg7 = g7 - green
+        //green
+
+        //blue
         var tb1  = 0
             if(blue > b1) tb1 = blue - b1
             else tb1 = b1 - blue
+        var tb2  = 0
+            if(blue > b2) tb2 = blue - b2
+            else tb2 = b2 - blue
+        var tb3  = 0
+            if(blue > b3) tb3 = blue - b3
+            else tb3 = b3 - blue
+        var tb4  = 0
+            if(blue > b4) tb4 = blue - g4
+            else tb4 = b4 - blue
+        var tb5  = 0
+            if(blue > b5) tb5 = blue - b5
+            else tb5 = b5 - blue
+        var tb6  = 0
+            if(blue > b6) tb6 = blue - b6
+            else tb6 = b6 - blue
+        var tb7  = 0
+            if(blue > b7) tb7 = blue - b7
+            else tb7 = b7 - blue
+        //blue
+
+
         //mText.text = tr1.toString() + tg1.toString() + tb1.toString()
 
+        //บังชั่นเช็คค่าที่ใกล้เคียงที่สุด คำณวนโดยหาค่าที่น้อยสุดจากการลบกันเมื่อพบค่าที่น้อยที่สุด จะนำเข้าไปเก็บในตัวแปร จออกลูปของการทำงาน
         var ir = 1000
+        var ig = 1000
+        var ib = 1000
         var level = 0
         var s = "level 0"
-        if(tr1 < ir) {
+        if(tr1 < ir && tg1 < ig && tb1 < ib) {
             ir = tr1
+            ig = tg1
+            ib = tb1
             level = 1
             s = "level 1"
         }
-        if(tr2 < ir) {
+        if(tr2 < ir && tg2 < ig && tb2 < ib) {
             ir = tr2
+            ig = tg2
+            ib = tb2
             level = 2
             s = "level 2"
         }
-        if(tr3 < ir) {
+        if(tr3 < ir && tg3 < ig && tb3 < ib) {
             ir = tr3
+            ig = tg3
+            ib = tb3
             level = 3
             s = "level 3"
         }
-        if(tr4 < ir) {
+        if(tr4 < ir && tg4 < ig && tb4 < ib) {
             ir = tr4
+            ig = tg4
+            ib = tb4
             level = 4
             s = "level 4"
         }
-        if(tr5 < ir) {
+        if(tr5 < ir && tg5 < ig && tb5 < ib) {
             ir = tr5
+            ig = tg5
+            ib = tb5
             level = 5
             s = "level 5"
         }
-        if(tr6 < ir) {
+        if(tr6 < ir && tg6 < ig && tb6 < ib) {
             ir = tr6
+            ig = tg6
+            ib = tb6
             level = 6
             s = "level 6"
         }
-        if(tr7 < ir) {
+        if(tr7 < ir && tg7 < ig && tb7 < ib) {
             ir = tr7
+            ig = tg7
+            ib = tb7
             level = 7
             s = "level 7"
         }
