@@ -208,49 +208,49 @@ class MainActivity : CMCameraIntentHelperActivity() {
         var ib = 1000
         var level = 0
         var s = "level 0"
-        if(tr1 < ir && tg1 < ig && tb1 < ib) {
+        if(tr1 < ir || tg1 < ig || tb1 < ib) {
             ir = tr1
             ig = tg1
             ib = tb1
             level = 1
             s = "level 1"
         }
-        if(tr2 < ir && tg2 < ig && tb2 < ib) {
+        if(tr2 < ir || tg2 < ig || tb2 < ib) {
             ir = tr2
             ig = tg2
             ib = tb2
             level = 2
             s = "level 2"
         }
-        if(tr3 < ir && tg3 < ig && tb3 < ib) {
+        if(tr3 < ir || tg3 < ig || tb3 < ib) {
             ir = tr3
             ig = tg3
             ib = tb3
             level = 3
             s = "level 3"
         }
-        if(tr4 < ir && tg4 < ig && tb4 < ib) {
+        if(tr4 < ir || tg4 < ig || tb4 < ib) {
             ir = tr4
             ig = tg4
             ib = tb4
             level = 4
             s = "level 4"
         }
-        if(tr5 < ir && tg5 < ig && tb5 < ib) {
+        if(tr5 < ir || tg5 < ig || tb5 < ib) {
             ir = tr5
             ig = tg5
             ib = tb5
             level = 5
             s = "level 5"
         }
-        if(tr6 < ir && tg6 < ig && tb6 < ib) {
+        if(tr6 < ir || tg6 < ig || tb6 < ib) {
             ir = tr6
             ig = tg6
             ib = tb6
             level = 6
             s = "level 6"
         }
-        if(tr7 < ir && tg7 < ig && tb7 < ib) {
+        if(tr7 < ir || tg7 < ig || tb7 < ib) {
             ir = tr7
             ig = tg7
             ib = tb7
